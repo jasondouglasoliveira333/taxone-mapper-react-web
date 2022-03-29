@@ -62,16 +62,16 @@ class MatcherListInner extends React.Component {
   }
   
   onPage = (page) => {
-		//alert("onPage:" + page);
-		if (page >= 0 && page < this.state.totalPages){
-			this.state.pagination.page=page;
-			this.loadSAFXTables();
+    //alert("onPage:" + page);
+    if (page >= 0 && page < this.state.totalPages){
+      this.state.pagination.page=page;
+      this.loadSAFXTables();
       //to update pagination component
       this.setState({ 
         pagination: this.state.pagination
       });
-		}
-	}
+    }
+  }
   
   render() {
     return (
@@ -84,7 +84,7 @@ class MatcherListInner extends React.Component {
           */}
             <div style={{width:'98%', marginLeft: '7px'}}>
               <div className="filter-label">Filtro</div>
-              <div style={{display:'flex'}}>	
+              <div style={{display:'flex'}}>  
                 <div style={{display: 'flex', margin: '5px 0 0 10px'}}>
                   <div style={{fontSize: '14px', marginRight: '13px'}}>Nome</div>
                   <input value={this.state.tableName} onChange={(e) => this.updateField('tableName', e)} type="text" size="20"/>

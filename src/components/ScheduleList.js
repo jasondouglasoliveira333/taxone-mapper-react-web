@@ -40,16 +40,16 @@ class ScheduleListInner extends React.Component {
   }
   
   onPage = (page) => {
-		//alert("onPage:" + page);
-		if (page >= 0 && page < this.state.totalPages){
-			this.state.pagination.page=page;
-			this.loadSchedules();
+    //alert("onPage:" + page);
+    if (page >= 0 && page < this.state.totalPages){
+      this.state.pagination.page=page;
+      this.loadSchedules();
       //to update pagination component
       this.setState({ 
         pagination: this.state.pagination
       });
-		}
-	}
+    }
+  }
   
   render(){
     return (

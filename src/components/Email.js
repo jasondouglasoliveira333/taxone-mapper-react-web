@@ -38,7 +38,7 @@ class Email extends React.Component {
       this.state.emailsFull = response.data.content;
       //alert("this.state.emailsFull :" + this.state.emailsFull );
       this.state.totalPages = this.calcPages();
-			this.state.emails = this.state.emailsFull.slice(0, this.state.pagination.size);
+      this.state.emails = this.state.emailsFull.slice(0, this.state.pagination.size);
       this.setState({
         emails : this.state.emails,
         totalPages : this.state.totalPages
@@ -49,12 +49,12 @@ class Email extends React.Component {
   }
   
   calcPages = () => {
-		let pages = Math.trunc(this.state.emailsFull.length / this.state.pagination.size);
-		if (this.state.emailsFull.length%this.state.pagination.size != 0){
-			pages++;
-		}
-		return pages;
-	}
+    let pages = Math.trunc(this.state.emailsFull.length / this.state.pagination.size);
+    if (this.state.emailsFull.length%this.state.pagination.size != 0){
+      pages++;
+    }
+    return pages;
+  }
   
   updateEmailField = (name, e) => {
     this.state.email[name] = e.target.value;
@@ -64,49 +64,49 @@ class Email extends React.Component {
   }
   
   onAdd = () => {
-		/*if (!this.valid()){
-			alert("Todos os campos são oberigatório");
-			return;
-		}*/
-		
-		this.state.emailsFull.splice(0,0,this.state.email);
-		this.state.email = { email: '', type : 'ALL' };
-		this.state.totalPages = this.calcPages(); 
+    /*if (!this.valid()){
+      alert("Todos os campos são oberigatório");
+      return;
+    }*/
+    
+    this.state.emailsFull.splice(0,0,this.state.email);
+    this.state.email = { email: '', type : 'ALL' };
+    this.state.totalPages = this.calcPages(); 
     this.setState({
       email : this.state.email,
       totalPages : this.state.totalPages
     });
-		this.onPage(this.state.pagination.page);
-	}
+    this.onPage(this.state.pagination.page);
+  }
   
   onSave = () => {
-		axios.post(this.emailsBaseUrl, this.state.emails)
-		.then((response) => {
-			alert("Email salvo com sucesso");
+    axios.post(this.emailsBaseUrl, this.state.emails)
+    .then((response) => {
+      alert("Email salvo com sucesso");
       this.loadEmails();
-		}).catch((error) => {
-			alert("Erro salvando email" + error);
-		});
-	}
+    }).catch((error) => {
+      alert("Erro salvando email" + error);
+    });
+  }
   
   onPage = (page) => {
-		if (page >= 0 && page < this.state.totalPages){
-			this.state.pagination.page=page;
-			let start = this.state.pagination.page*this.state.pagination.size;
-			this.state.emails = this.state.emailsFull.slice(start, start + this.state.pagination.size);
+    if (page >= 0 && page < this.state.totalPages){
+      this.state.pagination.page=page;
+      let start = this.state.pagination.page*this.state.pagination.size;
+      this.state.emails = this.state.emailsFull.slice(start, start + this.state.pagination.size);
       this.setState({
         emails : this.state.emails
       });
-		}
-	}
+    }
+  }
   
   onDelete = (id) => {
     axios.delete(this.emailsBaseUrl + `/${id}`)
-		.then(() => {
-			alert("Email excluido com sucesso");
-			this.loadEmails();
-		});
-	}
+    .then(() => {
+      alert("Email excluido com sucesso");
+      this.loadEmails();
+    });
+  }
 
   render(){
     return(

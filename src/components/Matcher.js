@@ -90,16 +90,16 @@ class MatcherInner extends React.Component {
     });
   }
 
-	onPageSAFX = (page) => {
-		if (page >= 0 && page < this.state.safxTotalPages){
-			this.state.pagination.page=page;
-			let start = this.state.pagination.page*this.state.pagination.size;
-			this.state.safxColumns = this.state.safxColumnsFull.slice(start, start + this.state.pagination.size);
+  onPageSAFX = (page) => {
+    if (page >= 0 && page < this.state.safxTotalPages){
+      this.state.pagination.page=page;
+      let start = this.state.pagination.page*this.state.pagination.size;
+      this.state.safxColumns = this.state.safxColumnsFull.slice(start, start + this.state.pagination.size);
       this.setState({
         safxColumns : this.state.safxColumns
       });
-		}
-	}
+    }
+  }
 
 
   onDSCnage = (e) => {
@@ -110,58 +110,58 @@ class MatcherInner extends React.Component {
   }
 
   //drag and drop
-	allowDrop = (ev) => {
+  allowDrop = (ev) => {
     //alert("allowDrop");
-	  ev.preventDefault();
-	}
+    ev.preventDefault();
+  }
 
-	drag = (ev, sField) => {
+  drag = (ev, sField) => {
     //alert("drag");
-		let fData = {
-			'id': sField.id,
-			'name': sField.name
-		};
-	  ev.dataTransfer.setData("value", JSON.stringify(fData));
-	}
-	
-	drop = (ev, field) => {
+    let fData = {
+      'id': sField.id,
+      'name': sField.name
+    };
+    ev.dataTransfer.setData("value", JSON.stringify(fData));
+  }
+  
+  drop = (ev, field) => {
     //alert("drop:" + JSON.stringify(field));
-	  ev.preventDefault();
-	  let fData = JSON.parse(ev.dataTransfer.getData("value"));
-	  field.dsColumnId = fData.id;
-	  field.dsColumnName = fData.name;
+    ev.preventDefault();
+    let fData = JSON.parse(ev.dataTransfer.getData("value"));
+    field.dsColumnId = fData.id;
+    field.dsColumnName = fData.name;
     this.props.forceUpdate();
-	}
+  }
   
   onRemoveAssociation = (field) => {
     field.dsColumnId = null;
-		field.dsColumnName = null;
+    field.dsColumnName = null;
     this.props.forceUpdate();
   }
   
   onPage = (page) => {
-		//alert("onPage:" + page);
-		if (page >= 0 && page < this.state.totalPages){
-			this.state.pagination.page=page;
-			this.loadUploads();
+    //alert("onPage:" + page);
+    if (page >= 0 && page < this.state.totalPages){
+      this.state.pagination.page=page;
+      this.loadUploads();
       //to update pagination component
       this.setState({  
         pagination: this.state.pagination
       });
-		}
-	}
+    }
+  }
   
   onPageDS = (page) => {
-		//alert("onPage:" + page);
-		if (page >= 0 && page < this.state.dsTotalPages){
-			this.state.dsPagination.page=page;
-			this.loadDSColumns(this.state.dsTableId);
+    //alert("onPage:" + page);
+    if (page >= 0 && page < this.state.dsTotalPages){
+      this.state.dsPagination.page=page;
+      this.loadDSColumns(this.state.dsTableId);
       //to update pagination component
       this.setState({  
         dsPagination: this.state.dsPagination
       });
-		}
-	}
+    }
+  }
 
   onSave = () => {
     alert("in onSave");

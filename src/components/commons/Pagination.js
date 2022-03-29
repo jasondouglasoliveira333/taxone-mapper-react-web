@@ -1,25 +1,25 @@
 import React from 'react';
 
 class Pagination extends React.Component {
-	
-	constructor(props){
+  
+  constructor(props){
     super(props);
     this.state = {
       buttons : []
     }
-	}
-	
-	pages(){
-		let pages = new Array();
-		for (let x=this.props.pagination.page; x < this.props.pagination.page+3 && x < this.props.totalPages; x++){
-			pages.push(x);
-		}
-		let length = pages.length;
-		for (let x=0; x < Math.min(3, this.props.totalPages) - length; x++){
-			pages.splice(0,0, pages[0]-1);
-		}
-		return pages;
-	}
+  }
+  
+  pages(){
+    let pages = new Array();
+    for (let x=this.props.pagination.page; x < this.props.pagination.page+3 && x < this.props.totalPages; x++){
+      pages.push(x);
+    }
+    let length = pages.length;
+    for (let x=0; x < Math.min(3, this.props.totalPages) - length; x++){
+      pages.splice(0,0, pages[0]-1);
+    }
+    return pages;
+  }
   
   generateButtons = () => {
     let buttonsHtml = [];
@@ -29,9 +29,9 @@ class Pagination extends React.Component {
     this.state.buttons = buttonsHtml;
   }
 
-	render() {
+  render() {
     this.generateButtons();
-	  return (
+    return (
       <div style={{display:'flex'}}>
         <button onClick={() => this.props.onPage(0)} className="page-button" style={{borderRadius: '5px 0 0 5px'}}>&lt;&lt;</button>
         <button onClick={() => this.props.onPage(this.props.pagination.page-1)} className="page-button">&lt;</button>
@@ -41,14 +41,14 @@ class Pagination extends React.Component {
         <button onClick={() => this.props.onPage(this.props.pagination.page+1)} className="page-button">></button>
         <button onClick={() => this.props.onPage(this.props.totalPages-1)} className="page-button" style={{borderRadius: '0 5px 5px 0'}}>>></button>
       </div>
-	  );
-	}
+    );
+  }
 
 }
 
 class PaginationModel {
   page = 0;
-	size = 10;
+  size = 10;
 }
 
 export default Pagination;

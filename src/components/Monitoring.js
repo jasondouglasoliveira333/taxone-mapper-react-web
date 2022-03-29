@@ -13,12 +13,12 @@ class MonitoringInner extends React.Component {
   scheduleLogsBaseUrl = "http://localhost:8180/schedulelogs";
   
   statuses = [
-		{'name':'PROCESSING', 'value':'Processando'},
-		{'name':'PROCESSING_ERROR', 'value':'Erro no processamento'},
-		{'name':'SENT', 'value':'Enviado'},
-		{'name':'PROCESSED', 'value':'Processado'},
-		{'name':'ERROR_TAXONE', 'value':'Erro no retorno TaxOne'},
-	];
+    {'name':'PROCESSING', 'value':'Processando'},
+    {'name':'PROCESSING_ERROR', 'value':'Erro no processamento'},
+    {'name':'SENT', 'value':'Enviado'},
+    {'name':'PROCESSED', 'value':'Processado'},
+    {'name':'ERROR_TAXONE', 'value':'Erro no retorno TaxOne'},
+  ];
 
   
   constructor(props){
@@ -50,121 +50,121 @@ class MonitoringInner extends React.Component {
     });
   }
   
-	transleteStatusSchedules = (scheduleLogs) => {
-		scheduleLogs.forEach((sl) => {
-			sl.status = this.translateStatus(sl.status);
-		});
+  transleteStatusSchedules = (scheduleLogs) => {
+    scheduleLogs.forEach((sl) => {
+      sl.status = this.translateStatus(sl.status);
+    });
     return scheduleLogs;
-	}
+  }
   
   onPage = (page) => {
-		if (page >= 0 && page < this.state.totalPages){
-			this.state.pagination.page=page;
-			this.loadScheduleLogs();
+    if (page >= 0 && page < this.state.totalPages){
+      this.state.pagination.page=page;
+      this.loadScheduleLogs();
       //to update pagination component
       this.setState({ 
         pagination: this.state.pagination
       });
-		}
-	}
+    }
+  }
   
-	onChartFilter = (status) => {
-		this.state.status = status;
-		this.loadScheduleLogs();
-	}
-	
-	onPage = (page) => {
-		if (page >= 0 && page < this.state.totalPages){
-			this.state.pagination.page=page;
-			this.loadScheduleLogs();
-		}
-	}	
-	
-	translateStatus = (status) => {
-		for (let x=0; x < this.statuses.length; x++){
-			let lStatus = this.statuses[x];
-			if (lStatus.name == status){
-				return lStatus.value;
-			}
-		}
-	}
+  onChartFilter = (status) => {
+    this.state.status = status;
+    this.loadScheduleLogs();
+  }
+  
+  onPage = (page) => {
+    if (page >= 0 && page < this.state.totalPages){
+      this.state.pagination.page=page;
+      this.loadScheduleLogs();
+    }
+  }  
+  
+  translateStatus = (status) => {
+    for (let x=0; x < this.statuses.length; x++){
+      let lStatus = this.statuses[x];
+      if (lStatus.name == status){
+        return lStatus.value;
+      }
+    }
+  }
   
   loadScheduleLogsStatisticts = () => { 
-		axios.get(this.scheduleLogsBaseUrl + '/statistics')
-		.then((response) => {
-			this.loadScheduleLogsArray(response.data);
-			this.createChartElement();
-		}).catch ((error) => {
+    axios.get(this.scheduleLogsBaseUrl + '/statistics')
+    .then((response) => {
+      this.loadScheduleLogsArray(response.data);
+      this.createChartElement();
+    }).catch ((error) => {
       alert("error:" + error);
     });
-	}
-	
-	loadScheduleLogsArray = (statistics) => {
+  }
+  
+  loadScheduleLogsArray = (statistics) => {
     let statusAgendamentos = [];
-		let PROCESSING_ST = this.findScheduleLogsByStatus(statistics, 'PROCESSING');
+    let PROCESSING_ST = this.findScheduleLogsByStatus(statistics, 'PROCESSING');
     //alert("PROCESSING_ST:" + PROCESSING_ST);
-		let PROCESSING = null;
-		if (PROCESSING_ST){
-			PROCESSING = [this.translateStatus(PROCESSING_ST.status), PROCESSING_ST.quantity];
-		}else{
-			PROCESSING = [this.translateStatus('PROCESSING'), 0];
-		}
-		statusAgendamentos.push(PROCESSING);
-		let PROCESSING_ERROR_ST = this.findScheduleLogsByStatus(statistics, 'PROCESSING_ERROR');
-		let PROCESSING_ERROR = [this.translateStatus(PROCESSING_ERROR_ST.status), PROCESSING_ERROR_ST.quantity];
-		statusAgendamentos.push(PROCESSING_ERROR);
-		let SENT_ST = this.findScheduleLogsByStatus(statistics, 'SENT');
-		let SENT = null;
-		if (SENT_ST){
-			SENT = [this.translateStatus(SENT_ST.status), SENT_ST.quantity];
-		}else{
-			SENT = [this.translateStatus('SENT'), 0];
-		}
-		statusAgendamentos.push(SENT);
-		let PROCESSED_ST = this.findScheduleLogsByStatus(statistics, 'PROCESSED');
-		let PROCESSED = [this.translateStatus(PROCESSED_ST.status), PROCESSED_ST.quantity];
-		statusAgendamentos.push(PROCESSED);
-		let ERROR_TAXONE_ST = this.findScheduleLogsByStatus(statistics, 'ERROR_TAXONE');
-		let ERROR_TAXONE = [this.translateStatus(ERROR_TAXONE_ST.status), ERROR_TAXONE_ST.quantity];
-		statusAgendamentos.push(ERROR_TAXONE);
+    let PROCESSING = null;
+    if (PROCESSING_ST){
+      PROCESSING = [this.translateStatus(PROCESSING_ST.status), PROCESSING_ST.quantity];
+    }else{
+      PROCESSING = [this.translateStatus('PROCESSING'), 0];
+    }
+    statusAgendamentos.push(PROCESSING);
+    let PROCESSING_ERROR_ST = this.findScheduleLogsByStatus(statistics, 'PROCESSING_ERROR');
+    let PROCESSING_ERROR = [this.translateStatus(PROCESSING_ERROR_ST.status), PROCESSING_ERROR_ST.quantity];
+    statusAgendamentos.push(PROCESSING_ERROR);
+    let SENT_ST = this.findScheduleLogsByStatus(statistics, 'SENT');
+    let SENT = null;
+    if (SENT_ST){
+      SENT = [this.translateStatus(SENT_ST.status), SENT_ST.quantity];
+    }else{
+      SENT = [this.translateStatus('SENT'), 0];
+    }
+    statusAgendamentos.push(SENT);
+    let PROCESSED_ST = this.findScheduleLogsByStatus(statistics, 'PROCESSED');
+    let PROCESSED = [this.translateStatus(PROCESSED_ST.status), PROCESSED_ST.quantity];
+    statusAgendamentos.push(PROCESSED);
+    let ERROR_TAXONE_ST = this.findScheduleLogsByStatus(statistics, 'ERROR_TAXONE');
+    let ERROR_TAXONE = [this.translateStatus(ERROR_TAXONE_ST.status), ERROR_TAXONE_ST.quantity];
+    statusAgendamentos.push(ERROR_TAXONE);
     this.state.statusAgendamentos = statusAgendamentos;
     
-	}
+  }
 
-	findScheduleLogsByStatus = (statistics, status) => {
-		for (let x=0; x < statistics.length; x++){
-			if(statistics[x].status == status){
-				return statistics[x];
-			}
-		}
-	}
-	
-	createChartElement = () => {
-		var s = document.createElement("script");
-		s.type = "text/javascript";
-		let script = "var chartData = [['Task', 'Hours per Day'],";
-		this.state.statusAgendamentos.forEach(sa => {
-			script += "['"  + sa[0] + "'," + sa[1] + "],";
-		});
-		script += "];";
-		script += `
-				var id = 'piechart';
-				loadChart();
-			    var options = {'title':'Status Agendamentos', 'width':500, 'height':300, is3D: true,
-					slices: {
-						0: { color: 'blue' },
-						1: { color: 'red' },
-						2: { color: 'orange' },
-						3: { color: 'green' },
-						4: { color: 'purple' },
-					}		
-				};
-		`;
-		s.text = script;
-		document.head.appendChild(s);
-	}
+  findScheduleLogsByStatus = (statistics, status) => {
+    for (let x=0; x < statistics.length; x++){
+      if(statistics[x].status == status){
+        return statistics[x];
+      }
+    }
+  }
+  
+  createChartElement = () => {
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    let script = "var chartData = [['Task', 'Hours per Day'],";
+    this.state.statusAgendamentos.forEach(sa => {
+      script += "['"  + sa[0] + "'," + sa[1] + "],";
+    });
+    script += "];";
+    script += `
+        var id = 'piechart';
+        loadChart();
+          var options = {'title':'Status Agendamentos', 'width':500, 'height':300, is3D: true,
+          slices: {
+            0: { color: 'blue' },
+            1: { color: 'red' },
+            2: { color: 'orange' },
+            3: { color: 'green' },
+            4: { color: 'purple' },
+          }    
+        };
+    `;
+    s.text = script;
+    document.head.appendChild(s);
+  }
 
-	
+  
   render(){
     return (
       <div className="local-card content">
@@ -240,8 +240,8 @@ class MonitoringTableBody extends React.Component {
   
   onView = (id) => {
     //alert("onView:" + id)
-		this.props.navigate('/monitoring-detail', { state : {'id' : id}});
-	}  
+    this.props.navigate('/monitoring-detail', { state : {'id' : id}});
+  }  
 
   render(){
     this.loadScheduleLogs();

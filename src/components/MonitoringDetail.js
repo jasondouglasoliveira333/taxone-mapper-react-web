@@ -51,12 +51,12 @@ class MonitoringDetailInner extends React.Component {
   }
   
   onPage = (page) => {
-		if (page >= 0 && page < this.state.totalPages){
-			this.state.pagination.page=page;
-			this.loadErrorsTaxOne();
-		}
-	}	
-	
+    if (page >= 0 && page < this.state.totalPages){
+      this.state.pagination.page=page;
+      this.loadErrorsTaxOne();
+    }
+  }  
+  
   onBack = () => {
     this.props.navigate('/monitoring');
   }
@@ -72,7 +72,7 @@ class MonitoringDetailInner extends React.Component {
           */}
             <div style={{width:'60%', marginLeft: '7px'}}>
               <div className="filter-label">Detalhes</div>
-              <div style={{display:'flex'}}>	
+              <div style={{display:'flex'}}>  
                 <div style={{display: 'flex', margin: '5px 0 0 10px'}}>
                   <div style={{fontSize: '14px', marginRight: '13px'}}>Nome</div>
                   <div style={{fontSize: '15px'}}>{this.state.scheduleLog.scheduleName}</div>
