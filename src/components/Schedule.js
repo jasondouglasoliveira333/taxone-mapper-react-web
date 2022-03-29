@@ -23,15 +23,15 @@ class ScheduleInner extends React.Component {
   
   //for while
   daysValues = [
-		{'value': '*', 'label': 'Todos'}, 
-		{'value': '0', 'label': 'Segunda'},
-		{'value': '1', 'label': 'Terça'},
-		{'value': '2', 'label': 'Quarta'},
-		{'value': '3', 'label': 'Quinta'},
-		{'value': '4', 'label': 'Sexta'},
-		{'value': '5', 'label': 'Sabado'},
-		{'value': '6', 'label': 'Domingo'}
-	];
+    {'value': '*', 'label': 'Todos'}, 
+    {'value': '0', 'label': 'Segunda'},
+    {'value': '1', 'label': 'Terça'},
+    {'value': '2', 'label': 'Quarta'},
+    {'value': '3', 'label': 'Quinta'},
+    {'value': '4', 'label': 'Sexta'},
+    {'value': '5', 'label': 'Sabado'},
+    {'value': '6', 'label': 'Domingo'}
+  ];
   
   operatorsValues = ['=', '!=', '>=', '<=', 'between', 'not empty', 'empty'];
   
@@ -196,10 +196,10 @@ class ScheduleInner extends React.Component {
   
   loadSelectedDays(days_schedule){
     let selectedDays = [];
-		let days = days_schedule.split(",");
-		days.forEach((day) => {
-			selectedDays.push(day);
-		});
+    let days = days_schedule.split(",");
+    days.forEach((day) => {
+      selectedDays.push(day);
+    });
     
     this.setState({
       selectedDays : selectedDays
@@ -207,57 +207,57 @@ class ScheduleInner extends React.Component {
     //alert('this.state.selectedDays:' + this.state.selectedDays);
     this.state.selectedDays = selectedDays;
     this.loadDaysOptions();
-	}
-	
-	loadSelectedHours(hours_schedule){
+  }
+  
+  loadSelectedHours(hours_schedule){
     let selectedHours = [];
-		let hours = hours_schedule.split(",");
-		hours.forEach((hour) => {
-			selectedHours.push(hour);
-		});
+    let hours = hours_schedule.split(",");
+    hours.forEach((hour) => {
+      selectedHours.push(hour);
+    });
     
     this.setState({
       selectedHours : selectedHours
     });
     this.state.selectedHours = selectedHours;
     this.loadHoursOptions();
-	}
+  }
   
   onAddSelected = () => {
-		this.state.selectedAvaiableTables.forEach(t => {
-			let el = this.state.safxTables.filter((at) => at.id == t)[0];
-			this.state.scheduleConfig.safxTables.push(el);
-			let i = this.state.safxTables.indexOf(el);
-			this.state.safxTables.splice(i, 1);
-		});
-		this.state.scheduleConfig.safxTables.sort((a,b) => a.id-b.id);
+    this.state.selectedAvaiableTables.forEach(t => {
+      let el = this.state.safxTables.filter((at) => at.id == t)[0];
+      this.state.scheduleConfig.safxTables.push(el);
+      let i = this.state.safxTables.indexOf(el);
+      this.state.safxTables.splice(i, 1);
+    });
+    this.state.scheduleConfig.safxTables.sort((a,b) => a.id-b.id);
     this.setState({
       scheduleConfig: this.state.scheduleConfig,
       safxTables : this.state.safxTables,
       selectedAvaiableTables : []
     });
     this.updated = true;
-	}
-	
-	onAddAvailable = () => {
+  }
+  
+  onAddAvailable = () => {
     let someSafxTableUsedInCriteria = false;
     //alert("this.state.selectedSelectedTables:" + this.state.selectedSelectedTables);
     console.log(this.state.selectedSelectedTables);
-		this.state.selectedSelectedTables.forEach(t => {
+    this.state.selectedSelectedTables.forEach(t => {
       this.state.scheduleConfig.criterias.forEach((criteria) => {
-				if (criteria.safxColumn.safxTable.id == t){
-					someSafxTableUsedInCriteria = true;
-				}
-			});
-		});
-		if (!someSafxTableUsedInCriteria){
-			this.state.selectedSelectedTables.forEach(t => {
-				let el = this.state.scheduleConfig.safxTables.filter((at) => at.id == t)[0];
-				this.state.safxTables.push(el);
-				let i = this.state.scheduleConfig.safxTables.indexOf(el);
-				this.state.scheduleConfig.safxTables.splice(i, 1);
-			});
-			this.state.safxTables.sort((a,b) => a.id-b.id);
+        if (criteria.safxColumn.safxTable.id == t){
+          someSafxTableUsedInCriteria = true;
+        }
+      });
+    });
+    if (!someSafxTableUsedInCriteria){
+      this.state.selectedSelectedTables.forEach(t => {
+        let el = this.state.scheduleConfig.safxTables.filter((at) => at.id == t)[0];
+        this.state.safxTables.push(el);
+        let i = this.state.scheduleConfig.safxTables.indexOf(el);
+        this.state.scheduleConfig.safxTables.splice(i, 1);
+      });
+      this.state.safxTables.sort((a,b) => a.id-b.id);
 
       this.setState({
         scheduleConfig: this.state.scheduleConfig,
@@ -265,38 +265,38 @@ class ScheduleInner extends React.Component {
         selectedSelectedTables : []
       });
       this.updated = true;
-		}else{
-			alert("Existe tabela que esta sendo usadas em critérios. Remover os critérios corespondentes");
-		}
-	}
+    }else{
+      alert("Existe tabela que esta sendo usadas em critérios. Remover os critérios corespondentes");
+    }
+  }
   
-	fillHours = () => {
+  fillHours = () => {
     this.state.hoursValues = [];
-		for (let x=0; x < 24; x++){
-			let hour = x + ":00";
-			if (hour.length == 4){
-				hour = "0" + hour;
-			}
-			this.state.hoursValues.push({ 'value': x + "", 'label': hour});
-		}
-	}
+    for (let x=0; x < 24; x++){
+      let hour = x + ":00";
+      if (hour.length == 4){
+        hour = "0" + hour;
+      }
+      this.state.hoursValues.push({ 'value': x + "", 'label': hour});
+    }
+  }
   
   onDateNumericKeydown = (e) => {
-	  //alert("e.keyCode:" + e.keyCode);
-		console.log(e);
-		return this.isNumericInputKey(e);
-	}
-	
-	isNumericInputKey = (e) => {
-		let specialKeys = [8, 37, 38, 39, 40, 46];
-		let numberKeys = [49, 50, 51, 52, 53, 54, 55, 56, 57];
-		if (specialKeys.includes(e.keyCode) ||
-			numberKeys.includes(e.keyCode)){
-			return true;
-		}else{
-			return false;
-		}
-	}
+    //alert("e.keyCode:" + e.keyCode);
+    console.log(e);
+    return this.isNumericInputKey(e);
+  }
+  
+  isNumericInputKey = (e) => {
+    let specialKeys = [8, 37, 38, 39, 40, 46];
+    let numberKeys = [49, 50, 51, 52, 53, 54, 55, 56, 57];
+    if (specialKeys.includes(e.keyCode) ||
+      numberKeys.includes(e.keyCode)){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
 
   loadCriteriasRows = () => {
@@ -328,18 +328,18 @@ class ScheduleInner extends React.Component {
   }
   
   calcPages = () => {
-		let pages = Math.trunc(this.state.scheduleConfig.criterias.length / this.state.pagination.size);
-		if (this.state.scheduleConfig.criterias.length%this.state.pagination.size != 0){
-			pages++;
-		}
-		return pages;
-	}
+    let pages = Math.trunc(this.state.scheduleConfig.criterias.length / this.state.pagination.size);
+    if (this.state.scheduleConfig.criterias.length%this.state.pagination.size != 0){
+      pages++;
+    }
+    return pages;
+  }
 
   
   findTableName = (id) => {
     //alert('id:' + id);
-		return this.state.scheduleConfig.safxTables.filter((at) => at.id == id)[0].name;
-	}
+    return this.state.scheduleConfig.safxTables.filter((at) => at.id == id)[0].name;
+  }
 
   updateScheduleConfig = (name, e) => {
     this.state.scheduleConfig[name] = e.target.value;
@@ -354,8 +354,8 @@ class ScheduleInner extends React.Component {
       criteria : this.state.criteria
     });
     
-		axios.get(this.safxTableBaseUrl + `/${this.state.criteria.safxColumn.safxTable.id}/safxColumns?associated=true`)
-		.then((response) => {
+    axios.get(this.safxTableBaseUrl + `/${this.state.criteria.safxColumn.safxTable.id}/safxColumns?associated=true`)
+    .then((response) => {
       //alert("response:" + JSON.stringify(response.data));
       if (response.data.length > 0){
         this.state.safxColumnsValues = response.data;
@@ -377,7 +377,7 @@ class ScheduleInner extends React.Component {
         });
         this.loadSafxColumnsOptions();
       }
-		}).catch ((error) => {
+    }).catch ((error) => {
       alert("Error getting columns");
     });
   }
@@ -404,7 +404,7 @@ class ScheduleInner extends React.Component {
   
   onAdd = () => {
     let safxColumnName = this.state.safxColumnsValues.filter((c) => c.id == this.state.criteria.safxColumn.id)[0].name;
-		this.state.criteria.safxColumn.name = safxColumnName;
+    this.state.criteria.safxColumn.name = safxColumnName;
     this.state.scheduleConfig.criterias.push(this.state.criteria);
     //this.state.criteria = {...this.criteriaInitialState}; for some reason dont clone!
     this.state.criteria = JSON.parse(JSON.stringify(this.criteriaInitialState));
@@ -418,42 +418,42 @@ class ScheduleInner extends React.Component {
     this.loadCriteriasRows();
   }
 
-	generateDaysValue = () => {
-		let days = '';
-		//alert("this.selectedDays:" + JSON.stringify(this.selectedDays));
-		this.state.selectedDays.forEach((day) => {
-			days += day + ',';
-		});
-		
-		if (days.length > 0){
-			days = days.substring(0, days.length-1);
-		}
-		this.state.scheduleConfig.days = days;
-	}
+  generateDaysValue = () => {
+    let days = '';
+    //alert("this.selectedDays:" + JSON.stringify(this.selectedDays));
+    this.state.selectedDays.forEach((day) => {
+      days += day + ',';
+    });
+    
+    if (days.length > 0){
+      days = days.substring(0, days.length-1);
+    }
+    this.state.scheduleConfig.days = days;
+  }
 
-	generateHoursValue = () => {
-		let hours = '';
-		this.state.selectedHours.forEach((hour) => {
-			hours += hour + ',';
-		});
-		
-		if (hours.length > 0){
-			hours = hours.substring(0, hours.length-1);
-		}
-		this.state.scheduleConfig.hours = hours;
-	}
+  generateHoursValue = () => {
+    let hours = '';
+    this.state.selectedHours.forEach((hour) => {
+      hours += hour + ',';
+    });
+    
+    if (hours.length > 0){
+      hours = hours.substring(0, hours.length-1);
+    }
+    this.state.scheduleConfig.hours = hours;
+  }
 
 
   onSave = () => {
-		/*if (!this.valid()){
-			return;
-		}*/
-		this.generateDaysValue();
-		this.generateHoursValue();
-		axios.post(this.scheduleBaseUrl, this.state.scheduleConfig)
-		.then((response) => {
-			alert("Agendamento salvo com sucesso");
-		}).catch((error) => {
+    /*if (!this.valid()){
+      return;
+    }*/
+    this.generateDaysValue();
+    this.generateHoursValue();
+    axios.post(this.scheduleBaseUrl, this.state.scheduleConfig)
+    .then((response) => {
+      alert("Agendamento salvo com sucesso");
+    }).catch((error) => {
       alert("Error" + error);
     });
   }
@@ -462,28 +462,28 @@ class ScheduleInner extends React.Component {
     this.props.navigate('/schedule-list');
   }
   
-	onDelete = (criteria) => {
-		let criteriaFound = this.state.scheduleConfig.criterias.indexOf(criteria);
-		//alert("criteriaFound:" + criteriaFound);
-		this.state.scheduleConfig.criterias.splice(criteriaFound, 1);
+  onDelete = (criteria) => {
+    let criteriaFound = this.state.scheduleConfig.criterias.indexOf(criteria);
+    //alert("criteriaFound:" + criteriaFound);
+    this.state.scheduleConfig.criterias.splice(criteriaFound, 1);
     this.setState({
       scheduleConfig : this.state.scheduleConfig
     });
     this.loadCriteriasRows();
-	}
-	
+  }
+  
   onPage = (page) => {
-		if (page >= 0 && page < this.state.totalPages){
-			this.state.pagination.page=page;
-			/*let start = this.state.pagination.page*this.state.pagination.size;
-			this.state.emails = this.state.emailsFull.slice(start, start + this.state.pagination.size);
+    if (page >= 0 && page < this.state.totalPages){
+      this.state.pagination.page=page;
+      /*let start = this.state.pagination.page*this.state.pagination.size;
+      this.state.emails = this.state.emailsFull.slice(start, start + this.state.pagination.size);
       this.setState({
         emails : this.state.emails
       });
       */
       this.loadCriteriasRows();
-		}
-	}
+    }
+  }
 
 
   render() {
